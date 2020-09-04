@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
       res.status(500).json({ message: "Couldn't load the actions" });
     })
 
-});
+}); 
 
 router.get('/:id', (req, res) => {
   
