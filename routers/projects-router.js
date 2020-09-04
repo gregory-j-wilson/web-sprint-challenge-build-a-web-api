@@ -26,7 +26,7 @@ router.post("/", (req, res) => {
 
 
 
-router.post("/:id/actions", (req, res) => {
+router.post("/:id/actions", validateProjectId, (req, res) => {
     const newAction = req.body;
 
     actionDb.insert(newAction)
@@ -120,6 +120,20 @@ router.delete("/:id", (req, res) => {
 
 });
 
+
+// Middleware ----------------- //
+
+function validateProjectId(req, res, next) {
+
+    const projectID = req.body.project_id
+
+   if ( Number(projectID) === Number(req.params.id) ) {
+       console.log('project_id is valid')
+       next()
+   } else {
+       res.status(500).json({error: 'project_id is invalid'})
+   }
+}
 
 
 module.exports = router;
